@@ -1,3 +1,91 @@
-<p>
-  recipe-edit works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-success" [disabled]="recipeForm.invalid">Save</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="from-group">
+            <label for="name">Name</label>
+            <input 
+              class="form-control"
+              type="text" 
+              id="name"
+              formControlName="name"
+              #name>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="from-group">
+            <label for="imagePath">Image Url</label>
+            <input 
+              class="form-control"
+              type="text" 
+              id="imagePath"
+              formControlName="imagePath"
+              #imagePath>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <img 
+            style="max-height: 100px;" 
+            class="image-responsive" 
+            [src]="imagePath.value" 
+            [alt]="name.value">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="from-group">
+            <label for="description">Description</label>
+            <textarea 
+              class="form-control"
+              type="text" 
+              id="description"
+              formControlName="description"
+              rows="6"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-xs-12" formArrayName="ingridients">
+          <div 
+            class="row" 
+            style="margin-top: 10px;"
+            *ngFor="let ingredientCtrl of controls; let i = index"
+            [formGroupName]="i">
+            <div class="col-xs-8">
+              <input 
+              class="form-control"
+              formControlName="name"
+              type="text">
+            </div>
+            <div class="col-xs-2">
+              <input 
+              class="form-control"
+              formControlName="amount"
+              type="number">
+            </div>
+            <div class="col-xs-2">
+              <button type="button" class="btn btn-danger"(click)="onDeleteIngridient(i)">X</button>
+            </div>
+          </div>  
+          <hr/>
+          <div class="row">
+            <div class="col-xs-12">
+              <button type="button" class="btn btn-success" (click)="onAddNewIngredient()">Add Ingredient</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -10,6 +10,8 @@ export class ShoppingListService {
 
   ingridientsChanged = new Subject<Ingridient[]>();
 
+  startedEditing = new Subject<number>();
+
   private ingridients: Ingridient[] = [
     new Ingridient('Apples', 5),
     new Ingridient('Tomatoes', 3),
@@ -19,6 +21,10 @@ constructor() { }
 
   getIngridients() {
     return this.ingridients.slice();
+  }
+
+  getIngridient(index: number) {
+    return this.ingridients[index];
   }
 
   addIngridient(ingridient:Ingridient) {
@@ -31,6 +37,13 @@ constructor() { }
     this.ingridientsChanged.next(this.getIngridients());
   }
 
+  updateIngridient(index: number, ingridient: Ingridient) {
+    this.ingridients.splice(index, 1, ingridient);
+    this.ingridientsChanged.next(this.getIngridients());
+  }
 
-
+  deleteIngridient(index:number) {
+    this.ingridients.splice(index, 1);
+    this.ingridientsChanged.next(this.getIngridients());
+  }
 }
