@@ -1,3 +1,5 @@
+import { PlaceholderDirevtive } from './shared/placeholder/placeholder.directive';
+import { AlertComponent } from './shared/alert/alert.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { NgModule } from '@angular/core';
@@ -32,7 +34,9 @@ import { AuthGuard } from './auth/auth.guard';
       RecipeEditComponent,
       DropdownDirective,
       AuthComponent,
-      LoadingSpinnerComponent
+      LoadingSpinnerComponent,
+      AlertComponent,
+      PlaceholderDirevtive
    ],
   imports: [
     BrowserModule,
@@ -42,6 +46,9 @@ import { AuthGuard } from './auth/auth.guard';
     HttpClientModule
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AlertComponent //Not needed in Angular9 og higher
+  ]
 })
 export class AppModule { }
